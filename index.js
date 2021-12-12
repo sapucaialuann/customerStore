@@ -94,15 +94,33 @@ function main() {
         };
         //todo
         const getDateOfSale= () => {
-            const dateObj = new Date()
-            // const gatDay = prompt('Insert the day of the sale (must be a number between 1 and 31): ');
-            // const gatMonth = prompt('Insert the month of the sale (must be a number between 1 and 12): ');
-            // const gatYear =  prompt('Insert the year of the sale (must be a number between 2018 and 2021): ');
-            const month = dateObj.getUTCMonth()+1;
-            const day = dateObj.getUTCDate();
-            const year =  dateObj.getUTCFullYear();
-            const date = day + '/' + month + '/' + year;
-            console.log(date);
+            isValid = false;
+            let date = '';
+            while(!isValid) {
+            const day = parseInt(prompt('Insert the day of the sale (must be a number between 1 and 31): '), 10);
+            const month = parseInt(prompt('Insert the month of the sale (must be a number between 1 and 12): '), 10);
+            const year =  parseInt(prompt('Insert the year of the sale (must be a number between 2018 and 2021): '), 10);
+            date = day + '/' + month + '/' + year;
+                function isValidDate(day, month, year)
+                {
+                    // Check the ranges of month and year
+                    if(year < 1000 || year > 3000 || month == 0 || month > 12) {
+                        console.log('Invalid Date! Please try again.')
+                        return isValid = false; ;
+                    }
+                    var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+                    if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+                        monthLength[1] = 29;
+                    if (day > 0 && day <= monthLength[month - 1])
+                    return isValid = true;
+                    else {
+                        console.log('Invalid Date! Please try again.')
+                        return isValid = false;
+                    }
+                };
+                isValidDate(day, month, year);
+                console.log(date);
+            }
             return date;
         };
         const updateTotalSalesValue = (sale, operationType) => {
@@ -171,9 +189,6 @@ function main() {
             else return value;
         }; 
         selectOptions();
-        //Clear console for better visualization
-        //Throw error for the received inputs
-        //date inputs are not being shown as desired.
         //turn the code more readable
     }
 }
