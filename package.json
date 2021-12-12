@@ -1,0 +1,14 @@
+{
+  "name": "customerstore",
+  "version": "1.0.0",
+  "description": "App developed for the customer to improve it's way of analyse sales and sellers' performance",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luann Sapucaia",
+  "license": "ISC",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
