@@ -23,20 +23,20 @@ const vendorsList = [
     }
 ]
 const salesList = [
-    {
-        sellerName: vendorsList[2].name,
-        customerName: 'mimi' ,
-        productName: 'atari',
-        date: '1/1/2020',
-        productPrice: 55.2
-    },
-    {
-        sellerName: vendorsList[4].name,
-        customerName: 'ww' ,
-        productName: 'qwe',
-        date: '1/1/2020',
-        productPrice: 60.2
-    }
+    // {
+    //     sellerName: vendorsList[2].name,
+    //     customerName: 'mimi' ,
+    //     productName: 'atari',
+    //     date: '1/1/2020',
+    //     productPrice: 55.2
+    // },
+    // {
+    //     sellerName: vendorsList[4].name,
+    //     customerName: 'ww' ,
+    //     productName: 'qwe',
+    //     date: '1/1/2020',
+    //     productPrice: 60.2
+    // }
 ];
 function main() {
     let keepAlive = true;
@@ -92,11 +92,12 @@ function main() {
         };
         const inputSaleInfo = (userValue) => {
             const sale = {};
-            sale.sellerName = vendorsList[getVendorName()].name;
+            sale.sellerName = vendorsList[userValue].name;
             sale.customerName = prompt('Insert the customer name: ');
             sale.date = getDateOfSale();
             sale.productName = prompt('Insert the product name: ');
             sale.productPrice = parseFloat(prompt('Insert the product price: '), 10);
+            sale.totalSales = vendorsList[userValue].totalSales;
             return sale;
         };
         const getVendorName = () => {
@@ -114,24 +115,17 @@ function main() {
             const date = day + '/' + month + '/' + year;
             return date;
         };
-        const checkuserInput = (userInput) => {
-            if (userInput <= vendorsList.length) {
-                return userInput;
-            }
-            else {
-                console.log('\nInvalid value, please try again:')
-                getVendorName()
-            }
-        };
         const updateTotalSalesValue = (sale, operationType) => {
             vendorsList.some(vendor => {
                 if (sale.sellerName == vendor.name) {
                     switch (operationType) {
                         case 1:
-                            vendor.totalSales += sale.productPrice
+                            vendor.totalSales += sale.productPrice;
+                            sale.totalSales = vendor.totalSales;
                             break;
                         case 0:
                             vendor.totalSales -= sale.productPrice;
+                            sale.totalSales = vendor.totalSales;
                             break;
                     }
                     return true;
@@ -141,14 +135,9 @@ function main() {
         };
         const rankVendors = () => {
             vendorsList.sort((a, b) =>  parseFloat(b.totalSales) - parseFloat(a.totalSales));
-            salesList.sort((a, b) => vendorsList.indexOf(b) - vendorsList.indexOf(a));
-            // vendorsList.forEach((vendor, index) => {
-            //     console.log(index + 1, vendor.name, vendor.totalSales);
-            // });
-            // console.log('\n');
-            // salesList.forEach((sale, index) => {
-            //     console.log(index + 1, sale.sellerName, sale.productPrice, sale.productName);
-            // });
+            salesList.sort((a, b) => parseFloat(b.totalSales) - parseFloat(a.totalSales));
+            console.log(vendorsList);
+            console.log(salesList);
         };   
         const listSales = () => {
             (salesList.length >= 1 ? salesList.forEach(sale => {console.log(
@@ -185,16 +174,16 @@ function main() {
         const throwError= (list, callBackFunction, value) => {
             console.clear();
             console.log(isNaN(value))
-            if (value >= list.length || isNaN(value)) {
+            if (value >= list.length || isNaN(value) || value === null) {
                 console.log('Invalid value. Please try again.\n');
                 return callBackFunction();
             }
             else return value;
         }; 
         selectOptions();
-        //Throw error for the received inputs
-        //Sort SalesList
         //Clear console for better visualization
+        //Throw error for the received inputs
+        //date inputs are not being shown as desired.
         //turn the code more readable
     }
 }
