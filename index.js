@@ -85,7 +85,6 @@ function main() {
         const createSale = () => {
             const userValue =  getVendorName();
             const sale = inputSaleInfo(userValue);
-            checkuserInput(userValue);
             console.log('\n Selected Vendor: ', vendorsList[userValue].name);
             salesList.push(sale);
             console.log('\nProduct successfully added.\n')
@@ -101,12 +100,11 @@ function main() {
             return sale;
         };
         const getVendorName = () => {
-            console.clear();
             vendorsList.forEach((vendor, index) => {
                 console.log(`\n${index}:  ${vendor.name}\n`)
             });
-            const userInput = parseInt(prompt("Select vendor's name: "), 10);
-            return userInput;
+            const userInput = prompt("Select vendor's name: ");
+            return throwError(vendorsList, getVendorName, userInput);
         };
         //todo
         const getDateOfSale= () => {
@@ -169,15 +167,6 @@ function main() {
                 console.log(sale)
             })
         };
-        const throwError= (list, callBackFunction, value) => {
-            console.clear();
-            console.log(isNaN(value))
-            if (value >= list.length || isNaN(value)) {
-                console.log('Invalid value. Please try again.\n');
-                return callBackFunction();
-            }
-            else return value;
-        };    
         const updateSaleItem = () => {
             const selectedItem = selectSaleItem();
             const editedItem = inputSaleInfo(selectSaleItem);
@@ -193,7 +182,15 @@ function main() {
                 return throwError(salesList, selectSaleItem, saleItem);
             } else console.log("\nYou don't have any sales registred!\n");
         }
-
+        const throwError= (list, callBackFunction, value) => {
+            console.clear();
+            console.log(isNaN(value))
+            if (value >= list.length || isNaN(value)) {
+                console.log('Invalid value. Please try again.\n');
+                return callBackFunction();
+            }
+            else return value;
+        }; 
         selectOptions();
         //Throw error for the received inputs
         //Sort SalesList
