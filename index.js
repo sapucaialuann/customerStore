@@ -22,22 +22,7 @@ const vendorsList = [
         totalSales: 0,
     }
 ]
-const salesList = [
-    // {
-    //     sellerName: vendorsList[2].name,
-    //     customerName: 'mimi' ,
-    //     productName: 'atari',
-    //     date: '1/1/2020',
-    //     productPrice: 55.2
-    // },
-    // {
-    //     sellerName: vendorsList[4].name,
-    //     customerName: 'ww' ,
-    //     productName: 'qwe',
-    //     date: '1/1/2020',
-    //     productPrice: 60.2
-    // }
-];
+const salesList = [];
 function main() {
     let keepAlive = true;
     while (keepAlive) {
@@ -109,10 +94,15 @@ function main() {
         };
         //todo
         const getDateOfSale= () => {
-            const day = prompt('Insert the day of the sale (must be a number between 1 and 31): ');
-            const month = prompt('Insert the month of the sale (must be a number between 1 and 12): ');
-            const year =  prompt('Insert the year of the sale (must be a number between 2018 and 2021): ');
+            const dateObj = new Date()
+            // const gatDay = prompt('Insert the day of the sale (must be a number between 1 and 31): ');
+            // const gatMonth = prompt('Insert the month of the sale (must be a number between 1 and 12): ');
+            // const gatYear =  prompt('Insert the year of the sale (must be a number between 2018 and 2021): ');
+            const month = dateObj.getUTCMonth()+1;
+            const day = dateObj.getUTCDate();
+            const year =  dateObj.getUTCFullYear();
             const date = day + '/' + month + '/' + year;
+            console.log(date);
             return date;
         };
         const updateTotalSalesValue = (sale, operationType) => {
