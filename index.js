@@ -49,7 +49,7 @@ function main() {
                     break;
                 case '4':
                     console.clear();
-                    rankVendors();
+                    listVendors();
                     break;
                 case '5':
                     console.clear();
@@ -92,7 +92,6 @@ function main() {
             const userInput = prompt("Select vendor's name: ");
             return throwError(vendorsList, getVendorName, userInput);
         };
-        //todo
         const getDateOfSale= () => {
             isValid = false;
             let date = '';
@@ -144,13 +143,14 @@ function main() {
         const rankVendors = () => {
             vendorsList.sort((a, b) =>  parseFloat(b.totalSales) - parseFloat(a.totalSales));
             salesList.sort((a, b) => parseFloat(b.totalSales) - parseFloat(a.totalSales));
-            console.log(vendorsList);
-            console.log(salesList);
         };   
         const listSales = () => {
             (salesList.length >= 1 ? salesList.forEach(sale => {console.log(
                 `\nSeller: ${sale.sellerName}, Item: ${sale.productName}, Price: ${sale.productPrice}, Customer: ${sale.customerName}`);}) : 
                 console.log("You don't have any registered sale!\n" ))
+        };
+        const listVendors = () => {
+            vendorsList.forEach(vendor => {console.log(`\nVendor: ${vendor.name}, Total sales: ${vendor.totalSales}`)})
         };
         const removeSell = () => {
             const itemToRemove = selectSaleItem();
@@ -189,7 +189,6 @@ function main() {
             else return value;
         }; 
         selectOptions();
-        //turn the code more readable
     }
 }
 main();
